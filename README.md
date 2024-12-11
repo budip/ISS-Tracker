@@ -63,45 +63,32 @@ You can run **both the backend and frontend using Docker**. This is the recommen
 
 ---
 
-## ⚙️ **How to Run Backend Locally (Without Docker)**
-If you want to run the backend **without Docker**, follow these steps:
-
-1. **Navigate to the backend folder**:
-   ```bash
-   cd /path/to/your/project/dotnet/backend
-   ```
-
-2. **Run the backend**:
-   ```bash
-   dotnet run
-   ```
-
-3. **Access the API**:
-   - **API Base URL**: http://localhost:5000
-   - **Swagger UI**: http://localhost:5000/swagger
+## 📦 **File Structure**
+```
+.
+├── backend
+│   ├── Dockerfile
+│   └── ... (other backend files)
+├── frontend
+│   ├── Dockerfile
+│   ├── .dockerignore
+│   ├── package.json
+│   └── ... (other frontend files)
+├── docker-compose.yml
+└── README.md
+```
 
 ---
 
-## ⚙️ **How to Run Frontend Locally (Without Docker)**
-If you want to run the frontend **without Docker**, follow these steps:
+## 📦 **Docker Commands for Development**
+Here are some helpful commands to manage your Docker containers.
 
-1. **Navigate to the frontend folder**:
-   ```bash
-   cd /path/to/your/project/dotnet/frontend
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Run the frontend**:
-   ```bash
-   npm start
-   ```
-
-4. **Access the frontend**:
-   - **URL**: http://localhost:3000
+| **Command**                      | **Description**                                    |
+|----------------------------------|---------------------------------------------------|
+| `docker-compose up --build`      | Build and run the containers (frontend & backend)  |
+| `docker-compose down`            | Stop and remove all containers                    |
+| `docker-compose logs -f`         | View real-time logs from both containers          |
+| `docker system prune -a`         | Remove all containers, images, and cache          |
 
 ---
 
@@ -133,7 +120,7 @@ REACT_APP_BACKEND_URL=http://localhost:5000
 
 ---
 
-## 📚 **Project Commands**
+## 📦 **Project Commands**
 Here are the most useful commands for development.
 
 | **Command**                 | **Description**                      |
@@ -166,29 +153,6 @@ curl -X 'GET'   'http://localhost:5000/api/iss/iss-location'   -H 'accept: */*'
   },
   "distanceToSeattle": 412.35
 }
-```
-
----
-
-## 📦 **File Structure**
-```
-.
-├── backend
-│   ├── Controllers
-│   │   └── IssController.cs    # API Controller
-│   ├── Program.cs              # Main entry point for .NET app
-│   ├── Dockerfile              # Dockerfile for backend
-│   └── docker-compose.yml      # Docker compose configuration
-│
-├── frontend
-│   ├── public
-│   │   └── index.html          # Main HTML file
-│   ├── src
-│   │   └── App.js              # Main React app
-│   ├── Dockerfile              # Dockerfile for frontend
-│   └── docker-compose.yml      # Docker compose configuration
-│
-└── README.md                   # This file
 ```
 
 ---
@@ -231,6 +195,3 @@ If you run into issues, here are a few tips:
 ## 📄 **License**
 This project is licensed under the **MIT License**. Feel free to use it for personal or commercial purposes.
 
----
-
-    
