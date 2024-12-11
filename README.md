@@ -1,72 +1,159 @@
 
-# 🚀 ISS Tracker Application
+# 🌌 ISS Tracker
 
-This project allows users to track the **International Space Station (ISS)** relative to **Seattle, WA**. 
-It consists of a **React (frontend)** and **.NET 9 (backend)** that work together to visualize the current location of the ISS on a map and calculate the distance from Seattle.
+Track the real-time location of the **International Space Station (ISS)** relative to **Seattle**. This project includes a **React frontend** and a **.NET backend**, both of which are fully containerized using **Docker**.
 
 ---
 
 ## 📁 **Project Structure**
-
 ```
-/Projects/dotnet/
-├── backend/       # .NET 9 backend (API server)
-├── frontend/      # React 18 frontend (user interface)
-└── README.md      # Project documentation
+/dotnet
+  ├── /backend       # Backend .NET 9 Web API (Dockerized)
+  └── /frontend      # Frontend React 18 Web App (Dockerized)
 ```
 
 ---
 
-## 🎉 **Features**
-- 🌍 **Live Tracking**: View the current position of the ISS on an interactive map.
-- 📍 **Distance Calculation**: Calculates the distance between Seattle and the ISS.
-- 📡 **Live Updates**: The position of the ISS updates every 10 seconds.
-- 🔥 **Real-Time View**: Click the "Get ISS Location" button to manually update the position.
+## 🚀 **Technologies Used**
+- **Frontend**: React 18
+- **Backend**: .NET 9 (C#)
+- **API**: [Open Notify ISS API](http://open-notify.org/)
+- **Docker**: Backend and frontend are fully containerized
+- **CORS**: Configured to allow cross-origin requests from the frontend
 
 ---
 
-## 🚀 **Getting Started**
+## 📦 **Setup Instructions**
 
-To run this project, you need **Node.js**, **.NET SDK 9.0**, and **npm** installed on your machine.
-
-### **1️⃣ Clone the Repository**
-```bash
-git clone <repository-url>
-cd /Projects/dotnet
-```
+### **1️⃣ Prerequisites**
+Make sure you have the following tools installed on your system:
+- **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
+- **Node.js**: [Install Node.js](https://nodejs.org/) (if you plan to run the frontend locally)
+- **.NET 9**: [Install .NET](https://dotnet.microsoft.com/download)
 
 ---
 
-## 🖥️ **Backend Setup (.NET 9)**
-The **backend** is a **.NET 9 Web API** that exposes an endpoint to track the ISS and calculate its distance from Seattle.
+## ⚙️ **How to Run the Project (Docker)**
+You can run **both the backend and frontend using Docker**. This is the recommended approach.
 
-### **1️⃣ Navigate to backend folder**
-```bash
-cd /Projects/dotnet/backend
-```
+### **Run Backend and Frontend Using Docker**
+1. **Navigate to the project root directory**:
+   ```bash
+   cd /path/to/your/project/dotnet
+   ```
 
-### **2️⃣ Install dependencies**
-```bash
-dotnet restore
-```
+2. **Run the Docker containers**:
+   ```bash
+   docker-compose up --build
+   ```
 
-### **3️⃣ Run the server**
-```bash
-dotnet run
-```
+3. **Access the application**:
+   - **Frontend**: http://localhost:3000
+   - **Backend (API)**: http://localhost:5000
 
-> **API will be available at:** http://localhost:5000
+4. **View Swagger documentation** (API docs):
+   - **Swagger UI**: http://localhost:5000/swagger
+
+5. **To stop the containers**:
+   ```bash
+   docker-compose down
+   ```
+
+> 📝 **Note**: The frontend and backend are both **containerized** and can be run together with `docker-compose`.
+
+---
+
+## ⚙️ **How to Run Backend Locally (Without Docker)**
+If you want to run the backend **without Docker**, follow these steps:
+
+1. **Navigate to the backend folder**:
+   ```bash
+   cd /path/to/your/project/dotnet/backend
+   ```
+
+2. **Run the backend**:
+   ```bash
+   dotnet run
+   ```
+
+3. **Access the API**:
+   - **API Base URL**: http://localhost:5000
+   - **Swagger UI**: http://localhost:5000/swagger
+
+---
+
+## ⚙️ **How to Run Frontend Locally (Without Docker)**
+If you want to run the frontend **without Docker**, follow these steps:
+
+1. **Navigate to the frontend folder**:
+   ```bash
+   cd /path/to/your/project/dotnet/frontend
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the frontend**:
+   ```bash
+   npm start
+   ```
+
+4. **Access the frontend**:
+   - **URL**: http://localhost:3000
 
 ---
 
 ## 🌐 **API Endpoints**
+The backend exposes the following API endpoints:
 
-| **Method** | **Endpoint**                  | **Description**              |
-|------------|------------------------------|------------------------------|
-| `GET`      | `/api/iss/iss-location`       | Get the ISS location relative to Seattle |
+| **Method** | **Endpoint**               | **Description**            |
+|------------|---------------------------|----------------------------|
+| **GET**    | `/api/iss/iss-location`    | Get ISS location and its distance from Seattle |
 
-### 📡 **Sample Response**
+---
 
+## 🔥 **How It Works**
+1. **Backend**: The backend calls the **Open Notify ISS API** to fetch the real-time location of the ISS.
+2. **Calculation**: The distance from **Seattle** to the ISS is calculated using the **Haversine formula**.
+3. **Frontend**: The frontend displays the current location of the ISS relative to **Seattle** on a map.
+
+---
+
+## 📜 **Environment Variables**
+You can configure **environment variables** for the project using a `.env` file.
+
+**Example `.env` file**:
+```
+REACT_APP_BACKEND_URL=http://localhost:5000
+```
+
+> **Note**: The backend URL is required so that the frontend can communicate with the backend.
+
+---
+
+## 📚 **Project Commands**
+Here are the most useful commands for development.
+
+| **Command**                 | **Description**                      |
+|----------------------------|--------------------------------------|
+| `docker-compose up --build` | Run the backend and frontend together with Docker |
+| `docker-compose down`       | Stop and remove Docker containers     |
+| `dotnet run`                | Run the backend locally without Docker |
+| `npm start`                 | Run the frontend locally without Docker |
+| `npm install`               | Install dependencies for the frontend |
+
+---
+
+## 🌐 **API Example**
+You can use **curl** or **Postman** to test the API.
+
+```bash
+curl -X 'GET'   'http://localhost:5000/api/iss/iss-location'   -H 'accept: */*'
+```
+
+**Example Response**:
 ```json
 {
   "issLocation": {
@@ -83,127 +170,67 @@ dotnet run
 
 ---
 
-## 💻 **Frontend Setup (React 18)**
-The **frontend** is a **React 18** application that visualizes the position of the ISS on a map. Version 19 is not recommended. Let me know if you have difficulties installing 18.
-
-### **1️⃣ Navigate to frontend folder**
-```bash
-cd /Projects/dotnet/frontend
+## 📦 **File Structure**
 ```
-
-### **2️⃣ Install dependencies**
-```bash
-npm install
-```
-
-### **3️⃣ Start the React app**
-```bash
-npm start
-```
-
-> **Frontend will be available at:** http://localhost:3000
-
----
-
-## 🚀 **How It Works**
-
-1. The **frontend** sends a request to **http://localhost:5000/api/iss/iss-location**.  
-2. The **backend** calls the ISS API (`http://api.open-notify.org/iss-now.json`), retrieves the ISS position, and calculates the distance from Seattle.  
-3. The **response is sent back** to the React app, and the position is displayed on the map.
-
----
-
-## ⚙️ **Configuration**
-
-If you'd like to modify the backend URL, you can create a **.env** file in the frontend folder:
-
-```
-REACT_APP_BACKEND_URL=http://localhost:5000
-```
-
-This allows you to change the API URL for production or testing.
-
----
-
-## 🛠️ **Project Commands**
-
-| **Command**         | **Location**        | **Description**              |
-|--------------------|-------------------|------------------------------|
-| `dotnet run`        | `/backend`         | Start the backend server     |
-| `dotnet clean`      | `/backend`         | Clean up old builds         |
-| `dotnet build`      | `/backend`         | Build the .NET project       |
-| `npm start`         | `/frontend`        | Start the React development server |
-| `npm install`       | `/frontend`        | Install dependencies         |
-
----
-
-## 🎉 **Technologies Used**
-
-| **Technology**    | **Description**           |
-|------------------|-------------------------|
-| **React 18**      | Frontend user interface  |
-| **.NET 9**        | Backend API             |
-| **Leaflet.js**    | Interactive map         |
-| **Open Notify**   | API to get the ISS position |
-
----
-
-## 📦 **Folder Structure**
-
-```
-/Projects/dotnet/
-├── backend/                     # .NET Web API
-│   ├── Controllers/             # Contains the IssController
-│   ├── Properties/              # Contains launchSettings.json
-│   ├── appsettings.json         # Configuration file
-│   ├── backend.csproj           # Project file
-│   └── Program.cs               # Entry point for the API
+.
+├── backend
+│   ├── Controllers
+│   │   └── IssController.cs    # API Controller
+│   ├── Program.cs              # Main entry point for .NET app
+│   ├── Dockerfile              # Dockerfile for backend
+│   └── docker-compose.yml      # Docker compose configuration
 │
-├── frontend/                    # React 18 Frontend
-│   ├── public/                  # Public files
-│   ├── src/                     # Source files
-│   │   ├── App.js               # Main React component
-│   │   └── index.js             # Entry point for React app
-│   └── package.json             # Project dependencies
+├── frontend
+│   ├── public
+│   │   └── index.html          # Main HTML file
+│   ├── src
+│   │   └── App.js              # Main React app
+│   ├── Dockerfile              # Dockerfile for frontend
+│   └── docker-compose.yml      # Docker compose configuration
 │
-└── README.md                    # Project documentation
+└── README.md                   # This file
 ```
 
 ---
 
-## 🧪 **Testing**
+## 🛠️ **Troubleshooting**
+If you run into issues, here are a few tips:
 
-1. **Test API**: Visit **http://localhost:5000/swagger** to see all API routes.  
-2. **Test Frontend**: Visit **http://localhost:3000** to interact with the map and view live ISS tracking.
+- **Port is already in use**:  
+  ```bash
+  lsof -i :3000
+  kill -9 <PID>
+  ```
 
----
+- **Container is stuck in restarting**:  
+  ```bash
+  docker-compose down
+  docker-compose up --build
+  ```
 
-## 🐛 **Common Issues & Fixes**
+- **Node modules are corrupted**:  
+  ```bash
+  rm -rf node_modules package-lock.json
+  npm install
+  ```
 
-| **Issue**                | **Cause**                 | **Solution** |
-|------------------------|--------------------------|--------------|
-| CORS Error (fetch failed) | Backend needs CORS enabled | Check backend **Program.cs** for `builder.Services.AddCors()` |
-| React cannot connect    | Wrong API URL in React  | Check **App.js** or **.env** for the correct backend URL |
-| API not working         | Server is not running  | Run `dotnet run` in the `/backend` directory |
-
----
-
-## 💡 **Possible Improvements**
-- **Add Authentication**: Secure the API with JWT tokens.
-- **Add Docker Support**: Create a Dockerfile to run the entire project in containers.
-- **Add Tests**: Write unit tests for API and frontend. 
-- **Add CI/CD**: Set up GitHub Actions for CI/CD.
-
----
-
-## 📜 **License**
-This project is licensed under the **MIT License**. You are free to modify, distribute, and use it as you see fit.
+- **Clear Docker cache**:  
+  ```bash
+  docker system prune -a
+  ```
 
 ---
 
-## 🤝 **Contact**
-
-If you have any questions, feel free to reach out!  
-Enjoy tracking the ISS! 🚀🌍✨
+## 📚 **Resources**
+- [Docker Documentation](https://docs.docker.com/)
+- [React Documentation](https://reactjs.org/)
+- [.NET 9 Documentation](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-9)
 
 ---
+
+## 📄 **License**
+This project is licensed under the **MIT License**. Feel free to use it for personal or commercial purposes.
+
+---
+
+    

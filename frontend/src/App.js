@@ -36,12 +36,12 @@ function App() {
     }
   };
 
-  // Auto-refresh ISS location every 10 seconds
+  // Auto-refresh ISS location every 60 seconds
   useEffect(() => {
     fetchISSLocation();
     const intervalId = setInterval(() => {
       fetchISSLocation();
-    }, 20000); // Update every 10 seconds
+    }, 60000);
 
     return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
