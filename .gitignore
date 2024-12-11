@@ -1,0 +1,22 @@
+# Ignore Node.js dependencies
+/frontend/node_modules
+
+# Ignore build files for .NET
+/backend/bin
+/backend/obj
+
+# Ignore macOS system files
+.DS_Store
+
+# Logs and temp files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore coverage files
+coverage
+
+# Ignore temporary files and folders
+tmp/
+temp/
